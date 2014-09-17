@@ -1,13 +1,43 @@
 <html>
     <body>
-        <p>Hello world!</p>
+        <h1>Chatroom</h1>
+        <div id="messages">
+        </div>
+        <div id="footer">
+            <form method="post" action="/message">{% csrf_token %}
+                <input type="text" name="message" id="message-input"/>
+            </form>
+        </div>
         {% load staticfiles %}
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="{% static "js/pusher.min.js" %}"></script>
+        <script src="{% static "js/jquery.cookie.js" %}"></script>
         <script>
             var pusher = new Pusher('ceb9e10775a1d1de32b6')
             var channel = pusher.subscribe('test_channel');
             channel.bind('test_event', function(data) {
                 alert('An event was triggered with message: ' + data.message);
+            });
+
+            // Include CSRF Token on cross domain requests
+            // https://docs.djangoproject.com/en/dev/ref/contrib/csrf/#ajax
+            var csrftoken = $.cookie('csrftoken');
+            function csrfSafeMethod(method) {
+                // these HTTP methods do not require CSRF protection
+                return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+            }
+            $.ajaxSetup({
+                beforeSend: function(xhr, settings) {
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                }
+            });
+
+
+            $("form").submit(function(e) {
+                e.preventDefault();
+                $.post("/messages");
             });
         </script>
     </body>

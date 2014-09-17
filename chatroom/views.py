@@ -1,18 +1,22 @@
-from django.http import HttpResponse
 from django.template import RequestContext, loader
+from django.views.decorators.http import require_POST
+from django.shortcuts import render_to_response
+
 import pusher
+
+from chatroom.settings import PUSHER_SECRET
 
 
 def index(request):
-    template = loader.get_template('chatroom/index.html')
     context = RequestContext(request, {})
-    return HttpResponse(template.render(context))
+    return render_to_response('chatroom/index.html', context)
 
 
+@require_POST
 def message(request):
     p = pusher.Pusher(
-          app_id='89800',
-          key='ceb9e10775a1d1de32b6',
-          secret='9be17a0bb5d5b5079d79'
+        app_id='89800',
+        key='ceb9e10775a1d1de32b6',
+        secret=PUSHER_SECRET,
     )
     p['test_channel'].trigger('test_event', {'message': 'hello world'})
