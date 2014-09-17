@@ -3,5 +3,12 @@
         <p>Hello world!</p>
         {% load staticfiles %}
         <script src="{% static "js/pusher.min.js" %}"></script>
+        <script>
+            var pusher = new Pusher('ceb9e10775a1d1de32b6')
+            var channel = pusher.subscribe('test_channel');
+            channel.bind('test_event', function(data) {
+                alert('An event was triggered with message: ' + data.message);
+            });
+        </script>
     </body>
 <html>
