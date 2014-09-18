@@ -1,7 +1,7 @@
 var pusher = new Pusher('ceb9e10775a1d1de32b6')
 var channel = pusher.subscribe('test_channel');
 channel.bind('test_event', function(data) {
-    alert('An event was triggered with message: ' + data.message);
+    $('#messages').append("<p>" + data.message + "</p>");
 });
 
 // Include CSRF Token on cross domain requests
