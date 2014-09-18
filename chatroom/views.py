@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.template import RequestContext, loader
 from django.views.decorators.http import require_POST
 from django.shortcuts import render_to_response
@@ -20,3 +21,4 @@ def message(request):
         secret=PUSHER_SECRET,
     )
     p['test_channel'].trigger('test_event', {'message': request.POST['message']})
+    return HttpResponse(status=204)
