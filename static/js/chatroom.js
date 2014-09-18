@@ -32,3 +32,5 @@ $("form").submit(function(e) {
         dataType: "json",
     });
 });
+
+$('.message-input').focus();
