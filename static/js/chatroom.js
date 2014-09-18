@@ -22,5 +22,13 @@ $.ajaxSetup({
 
 $("form").submit(function(e) {
     e.preventDefault();
-    $.post("/messages");
+    var message = $("#message-input").val();
+    $.ajax({
+        type: "POST",
+        url: "/messages",
+        data: {
+            "message": message,
+        },
+        dataType: "json",
+    });
 });
