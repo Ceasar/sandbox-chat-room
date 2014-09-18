@@ -1,4 +1,4 @@
-.PHONY: server
+.PHONY: server shell
 
 env: requirements.txt
 	virtualenv $@
@@ -9,3 +9,6 @@ db.sqlite3: env
 
 server: db.sqlite3 env
 	. env/bin/activate && python manage.py runserver
+
+shell:
+	bash --rcfile env/bin/activate; exit
