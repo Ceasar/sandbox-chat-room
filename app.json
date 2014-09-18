@@ -1,0 +1,7 @@
+{
+  "name": "Chatroom",
+  "description": "A prooft of concept chat room using Django and Pusher.",
+  "repository": "https://github.com/Ceasar/sandbox-chat-room",
+  "keywords": ["chat", "django", "pusher"],
+  "addons": ["pusher"]
+}
