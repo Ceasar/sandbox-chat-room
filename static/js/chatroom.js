@@ -1,7 +1,7 @@
 var pusher = new Pusher('ceb9e10775a1d1de32b6')
 var channel = pusher.subscribe('test_channel');
 channel.bind('test_event', function(data) {
-    $('#messages').append("<p>" + data.message + "</p>");
+    $('.messages').append("<p>" + data.message + "</p>");
 });
 
 // Include CSRF Token on cross domain requests
@@ -22,7 +22,7 @@ $.ajaxSetup({
 
 $("form").submit(function(e) {
     e.preventDefault();
-    var message = $("#message-input").val();
+    var message = $(".message-input").val();
     $.ajax({
         type: "POST",
         url: "/messages",

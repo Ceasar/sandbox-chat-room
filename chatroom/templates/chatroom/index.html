@@ -1,14 +1,29 @@
+{% load staticfiles %}
 <html>
+    <head>
+        <title>Chatroom</title>
+        <link rel="stylesheet" href="{% static "css/foundation.css" %}">
+        <link rel="stylesheet" href="{% static "css/chatroom.css" %}">
+    </head>
     <body>
-        <h1>Chatroom</h1>
-        <div id="messages">
+        <div class="row">
+            <div class="small-12 large-12 columns">
+                <h1><a href="/">Chatroom</a></h1>
+            </div>
         </div>
-        <div id="footer">
-            <form method="post" action="/message">{% csrf_token %}
-                <input type="text" name="message" id="message-input"/>
-            </form>
+        <div class="row">
+            <div class="small-12 large-12 columns">
+                <div class="chat">
+                    <div class="messages">
+                    </div>
+                    <div id="footer">
+                        <form method="post" action="/message">{% csrf_token %}
+                            <input type="text" name="message" class="message-input"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        {% load staticfiles %}
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="{% static "js/pusher.min.js" %}"></script>
         <script src="{% static "js/jquery.cookie.js" %}"></script>
