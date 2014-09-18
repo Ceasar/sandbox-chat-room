@@ -9,6 +9,8 @@
 #
 ENV = development
 
+export DATABASE_URL = sqlite:///db.sqlite3
+
 env: requirements.txt
 	virtualenv $@
 	. $@/bin/activate && pip install --requirement requirements.txt

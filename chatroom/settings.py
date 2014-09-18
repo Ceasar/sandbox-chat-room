@@ -7,7 +7,6 @@ https://docs.djangoproject.com/en/1.7/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
-from secrets import PUSHER_SECRET
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
@@ -78,6 +77,18 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Configure Django to work with Heroku. Learn more at:
+# https://devcenter.heroku.com/articles/getting-started-with-django
+
+# Parse database configuration from $DATABASE_URL
+import dj_database_url
+DATABASES['default'] = dj_database_url.config()
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Allow all host headers
+ALLOWED_HOSTS = ['*']
 
 # Static files (CSS, JavaScript, Images)
 
@@ -86,5 +97,23 @@ STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-        os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "static"),
 )
+
+PUSHER_SECRET_NOT_SET = """
+PUSHER_SECRET is not defined. You can define it locally by simply:
+
+    export PUSHER_SECRET=mysecret
+
+You can define it on a Heroku machine by simply:
+
+    heroku config:set PUSHER_SECRET=mysecret
+"""
+
+# Your secret key for Pusher.
+#
+# If you have a Pusher account, you can find your key here:
+# https://app.pusher.com/apps/89800/api_access
+#
+assert 'PUSHER_SECRET' in os.environ, PUSHER_SECRET_NOT_SET
+PUSHER_SECRET = os.environ['PUSHER_SECRET']

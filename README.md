@@ -16,3 +16,10 @@ To the start the web server in development mode, simply:
 To start the web server in production mode:
 
     make sever ENV=production
+
+Deploying to Heroku
+================================================================================
+
+You will need to define your Pusher secret key via:
+
+    heroku config:set PUSHER_SECRET=mysecret
