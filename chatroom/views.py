@@ -20,5 +20,9 @@ def message(request):
         key='ceb9e10775a1d1de32b6',
         secret=PUSHER_SECRET,
     )
-    p['test_channel'].trigger('test_event', {'message': request.POST['message']})
+    data = {
+        'name': request.POST['name'],
+        'message': request.POST['message'],
+    }
+    p['test_channel'].trigger('test_event', data)
     return HttpResponse(status=204)

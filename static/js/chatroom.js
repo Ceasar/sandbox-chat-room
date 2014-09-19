@@ -1,7 +1,10 @@
 var pusher = new Pusher('ceb9e10775a1d1de32b6')
 var channel = pusher.subscribe('test_channel');
 channel.bind('test_event', function(data) {
-    $('.messages').append("<p>" + data.message + "</p>");
+    $("<div/>", {class: "message"})
+        .append($("<span/>", {class: "nickname", text: data.name + ": "}))
+        .append($("<span/>", {class: "content", text: data.message}))
+        .appendTo($('.messages'));
 });
 
 // Include CSRF Token on cross domain requests
@@ -27,6 +30,7 @@ $("form").submit(function(e) {
         type: "POST",
         url: "/messages",
         data: {
+            "name": $.cookie('name'),
             "message": message,
         },
         dataType: "json",
@@ -34,3 +38,7 @@ $("form").submit(function(e) {
 });
 
 $('.message-input').focus();
+
+if ($.cookie('name') === undefined) {
+    $.cookie('name', prompt("Enter Your Name"));
+}
