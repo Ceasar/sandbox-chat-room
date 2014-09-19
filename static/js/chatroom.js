@@ -40,8 +40,7 @@ $("form").submit(function(e) {
     });
 });
 
-$('.message-input').focus();
-
 if ($.cookie('name') === undefined) {
     $.cookie('name', prompt("Enter Your Name"));
 }
+$('.message-input').focus();
