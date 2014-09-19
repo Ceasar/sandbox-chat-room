@@ -34,6 +34,9 @@ $("form").submit(function(e) {
             "message": message,
         },
         dataType: "json",
+        success: function() {
+            $(".message-input").val("")
+        }
     });
 });
 
