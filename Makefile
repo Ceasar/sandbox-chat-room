@@ -1,4 +1,4 @@
-.PHONY: server shell
+.PHONY: server shell test
 
 # Either "development" or "production".
 #
@@ -27,3 +27,6 @@ endif
 
 shell:
 	bash --rcfile env/bin/activate; exit
+
+test: env
+	. env/bin/activate && python manage.py test
